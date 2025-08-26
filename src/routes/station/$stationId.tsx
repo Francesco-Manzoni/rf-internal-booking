@@ -173,7 +173,6 @@ function StationCalendarPage() {
         <Card className="mb-6">
           <CardHeader>
             <div className="flex flex-row items-center justify-between gap-2">
-              {/* Bottone Previous */}
               <Button
                 variant="outline"
                 onClick={handlePrevWeek}
@@ -183,13 +182,9 @@ function StationCalendarPage() {
                 <ArrowLeft className="h-4 w-4 mr-0 md:mr-2" />
                 <span className="hidden md:inline">Previous Week</span>
               </Button>
-
-              {/* Titolo con date */}
               <CardTitle className="text-lg text-center flex-1">
                 {formatDate(weekDates[0])} - {formatDate(weekDates[6])}
               </CardTitle>
-
-              {/* Bottone Next */}
               <Button
                 variant="outline"
                 onClick={handleNextWeek}
@@ -203,7 +198,64 @@ function StationCalendarPage() {
           </CardHeader>
         </Card>
 
-        {/* Calendar Grid */}
+        <div className="block md:hidden mb-3">
+          {/* Day initials header */}
+          <div className="grid grid-cols-7 gap-1 text-center">
+            {weekDays.map((day) => (
+              <div key={day} className="py-2">
+                <p className="text-sm font-medium text-gray-500">
+                  {day.charAt(0)}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile calendar dates grid */}
+          <div className="grid grid-cols-7 gap-1">
+            {weekDates.map((date) => {
+              const dayBookings = getBookingsForDate(date)
+              const isToday = date.toDateString() === new Date().toDateString()
+
+              const hasPickup = dayBookings.some((b) =>
+                ['pickup', 'same-day'].includes(getBookingType(b, date)),
+              )
+              const hasReturn = dayBookings.some((b) =>
+                ['return', 'same-day'].includes(getBookingType(b, date)),
+              )
+
+              return (
+                <div
+                  key={date.toISOString()}
+                  className={`flex flex-col items-center p-1 space-y-1 rounded-lg ${
+                    isToday ? 'bg-blue-100 border border-blue-500' : ''
+                  }`}
+                >
+                  <span
+                    className={`text-sm font-medium ${isToday ? 'text-blue-600 font-bold' : 'text-gray-900'}`}
+                  >
+                    {date.getDate()}
+                  </span>
+                  <div className="flex space-x-1 h-2 items-center">
+                    {hasPickup && (
+                      <div
+                        className="w-1.5 h-1.5 bg-blue-600 rounded-full"
+                        title="Pickup"
+                      ></div>
+                    )}
+                    {hasReturn && (
+                      <div
+                        className="w-1.5 h-1.5 bg-green-600 rounded-full"
+                        title="Return"
+                      ></div>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* --- Original Desktop Calendar Grid (now hidden on mobile) --- */}
         <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
           {weekDates.map((date, index) => {
             const dayBookings = getBookingsForDate(date)
