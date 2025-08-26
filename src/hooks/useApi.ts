@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 import { bookingsApi, stationsApi } from '../lib/api'
 
-export const useStations = () => {
+export const useStation = (id: string) => {
   return useQuery({
-    queryKey: ['stations'],
-    queryFn: stationsApi.getStations,
+    queryKey: ['stations', id],
+    queryFn: () => stationsApi.getStationById(id),
+    enabled: !!id,
   })
 }
 

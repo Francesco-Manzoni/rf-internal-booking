@@ -1,12 +1,13 @@
 import type { Booking, BookingListItem, Station } from '../types/api'
 
 const BASE_URL = 'https://605c94c36d85de00170da8b4.mockapi.io/stations'
+const BOOKINGS_BASE_URL = 'https://605c94c36d85de00170da8b4.mockapi.io/bookings'
 
 export const stationsApi = {
-  async getStations(): Promise<Array<Station>> {
-    const response = await fetch(BASE_URL)
+  async getStationById(id: string): Promise<Station> {
+    const response = await fetch(`${BASE_URL}/${id}`)
     if (!response.ok) {
-      throw new Error('Failed to fetch stations')
+      throw new Error('Failed to fetch station')
     }
     return response.json()
   },
@@ -24,56 +25,38 @@ export const stationsApi = {
 
 export const bookingsApi = {
   async getBookings(): Promise<Array<BookingListItem>> {
-    // Get all stations with their bookings
-    const stations = await stationsApi.getStations()
-    const allBookings: Array<BookingListItem> = []
-
-    stations.forEach((station) => {
-      if (station.bookings) {
-        allBookings.push(...station.bookings)
-      }
-    })
-
-    return allBookings
+    // This method is still needed for general booking queries
+    // but we should avoid using it if possible for performance
+    const response = await fetch(`${BOOKINGS_BASE_URL}`)
+    if (!response.ok) {
+      throw new Error('Failed to fetch bookings')
+    }
+    return response.json()
   },
 
   async getBookingById(id: string): Promise<Booking> {
-    // First, we need to find which station this booking belongs to
-    // We'll search through all stations to find the booking and get the station info
-    const stations = await stationsApi.getStations()
+    // Use the direct booking endpoint
+    const response = await fetch(`${BOOKINGS_BASE_URL}/${id}`)
+    if (!response.ok) {
+      throw new Error('Failed to fetch booking')
+    }
 
-    for (const station of stations) {
-      if (station.bookings) {
-        const booking = station.bookings.find((b) => b.id === id)
-        if (booking) {
-          // Now use the direct endpoint for more detailed booking info
-          try {
-            const response = await fetch(
-              `${BASE_URL}/${station.id}/bookings/${id}`,
-            )
-            if (response.ok) {
-              const detailedBooking = await response.json()
-              return {
-                ...detailedBooking,
-                pickupReturnStationName: station.name,
-              }
-            }
-          } catch (error) {
-            console.warn(
-              'Failed to fetch detailed booking, falling back to basic info',
-            )
-          }
+    const booking = await response.json()
 
-          // Fallback to basic booking info if detailed fetch fails
-          return {
-            ...booking,
-            pickupReturnStationName: station.name,
-          }
-        }
+    // Get station name if we have the station ID in the booking
+    if (booking.pickupReturnStationId) {
+      try {
+        const station = await stationsApi.getStationById(
+          booking.pickupReturnStationId,
+        )
+        booking.pickupReturnStationName = station.name
+      } catch (error) {
+        console.warn('Could not fetch station name for booking')
+        booking.pickupReturnStationName = 'Unknown Station'
       }
     }
 
-    throw new Error(`Booking with ID ${id} not found`)
+    return booking
   },
 
   async getBookingByIdAndStation(
@@ -90,21 +73,24 @@ export const bookingsApi = {
     const booking = await response.json()
 
     // Get station name for additional context
-    const stations = await stationsApi.getStations()
-    const station = stations.find((s) => s.id === stationId)
-
-    return {
-      ...booking,
-      pickupReturnStationName: station?.name || 'Unknown Station',
+    try {
+      const station = await stationsApi.getStationById(stationId)
+      booking.pickupReturnStationName = station.name
+    } catch (error) {
+      console.warn('Could not fetch station name')
+      booking.pickupReturnStationName = 'Unknown Station'
     }
+
+    return booking
   },
 
   async getBookingsByStation(
     stationId: string,
   ): Promise<Array<BookingListItem>> {
-    const stations = await stationsApi.getStations()
-    const station = stations.find((s) => s.id === stationId)
-
-    return station?.bookings || []
+    const response = await fetch(`${BASE_URL}/${stationId}/bookings`)
+    if (!response.ok) {
+      throw new Error('Failed to fetch station bookings')
+    }
+    return response.json()
   },
 }
