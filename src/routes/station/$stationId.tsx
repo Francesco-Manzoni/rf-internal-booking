@@ -3,7 +3,7 @@ import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import {
   ArrowLeft,
   ArrowRight,
-  Calendar,
+  Calendar as CalendarIcon, // Renamed to avoid conflict
   ChevronLeft,
   User,
 } from 'lucide-react'
@@ -12,6 +12,12 @@ import type { BookingListItem } from '../../types/api'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import { Calendar } from '@/components/ui/calendar'
 
 export const Route = createFileRoute('/station/$stationId')({
   component: StationCalendarPage,
@@ -21,6 +27,7 @@ function StationCalendarPage() {
   const { stationId } = Route.useParams()
   const navigate = useNavigate()
   const [currentWeek, setCurrentWeek] = useState(0)
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
   const { data: station } = useStation(stationId)
   const {
@@ -125,6 +132,30 @@ function StationCalendarPage() {
     navigate({ to: '/' })
   }
 
+  const handleDateSelect = (date: Date | undefined) => {
+    if (!date) return
+
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    const selected = new Date(date)
+    selected.setHours(0, 0, 0, 0)
+
+    // Calculate the difference in milliseconds and then in days
+    const msPerDay = 1000 * 60 * 60 * 24
+    const dayDiff = Math.floor(
+      (selected.getTime() - today.getTime()) / msPerDay,
+    )
+
+    // Calculate the week offset from the day difference
+    const weekOffset = Math.floor(
+      (dayDiff - today.getDay() + selected.getDay()) / 7,
+    )
+
+    setCurrentWeek(weekOffset)
+    setIsCalendarOpen(false) // Close the popover after selection
+  }
+
   if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -164,9 +195,24 @@ function StationCalendarPage() {
               <p className="text-gray-600">Manage pickups and returns</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Calendar className="h-6 w-6 text-blue-600" />
-          </div>
+          {/* --- UPDATED: Calendar Icon is now a Popover Trigger --- */}
+          <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+            <PopoverTrigger asChild>
+              <Button variant="outline" size="icon">
+                <CalendarIcon className="h-5 w-5 text-blue-600" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="end">
+              <Calendar
+                mode="single"
+                selected={
+                  weekDates[0] // Select the first day of the current week
+                }
+                onSelect={handleDateSelect}
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
         </div>
 
         {/* Week Navigation */}
@@ -255,7 +301,6 @@ function StationCalendarPage() {
           </div>
         </div>
 
-        {/* --- Original Desktop Calendar Grid (now hidden on mobile) --- */}
         <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
           {weekDates.map((date, index) => {
             const dayBookings = getBookingsForDate(date)
