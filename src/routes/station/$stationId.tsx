@@ -172,17 +172,32 @@ function StationCalendarPage() {
         {/* Week Navigation */}
         <Card className="mb-6">
           <CardHeader>
-            <div className="flex items-center justify-between">
-              <Button variant="outline" onClick={handlePrevWeek} size="sm">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Previous Week
+            <div className="flex flex-row items-center justify-between gap-2">
+              {/* Bottone Previous */}
+              <Button
+                variant="outline"
+                onClick={handlePrevWeek}
+                size="sm"
+                className="flex items-center justify-center"
+              >
+                <ArrowLeft className="h-4 w-4 mr-0 md:mr-2" />
+                <span className="hidden md:inline">Previous Week</span>
               </Button>
-              <CardTitle className="text-lg">
+
+              {/* Titolo con date */}
+              <CardTitle className="text-lg text-center flex-1">
                 {formatDate(weekDates[0])} - {formatDate(weekDates[6])}
               </CardTitle>
-              <Button variant="outline" onClick={handleNextWeek} size="sm">
-                Next Week
-                <ArrowRight className="h-4 w-4 ml-2" />
+
+              {/* Bottone Next */}
+              <Button
+                variant="outline"
+                onClick={handleNextWeek}
+                size="sm"
+                className="flex items-center justify-center"
+              >
+                <span className="hidden md:inline">Next Week</span>
+                <ArrowRight className="h-4 w-4 ml-0 md:ml-2" />
               </Button>
             </div>
           </CardHeader>
