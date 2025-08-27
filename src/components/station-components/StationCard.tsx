@@ -81,7 +81,7 @@ export function StationCard({
 
 export function StationCardSkeleton() {
   return (
-    <Card className="animate-pulse">
+    <Card className="animate-pulse" data-testid="station-card-skeleton">
       <CardContent className="p-4">
         <div className="flex items-start gap-3">
           <Skeleton className="w-9 h-9 rounded-lg" />

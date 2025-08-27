@@ -71,7 +71,7 @@ export const StationHeader = ({
         <div className="flex items-center gap-2">
           <MapPin className="w-6 h-6 text-blue-600" />
           <h1 className="text-3xl font-bold text-gray-900 leading-tight">
-            {station ? station.name : 'Station Calendar'}
+            {station && station.name ? station.name : 'Station Calendar'}
           </h1>
         </div>
         <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
