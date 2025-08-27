@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "stationId": "BER",
+    "customerName": "John Doe",
+    "startDate": "2025-08-25T10:00:00Z",
+    "endDate": "2025-08-25T12:00:00Z"
+  },
+  {
+    "id": "2",
+    "stationId": "BER",
+    "customerName": "Jane Smith",
+    "startDate": "2025-09-01T14:00:00Z",
+    "endDate": "2025-09-01T16:00:00Z"
+  },
+  {
+    "id": "3",
+    "stationId": "BER",
+    "customerName": "Peter Jones",
+    "startDate": "2025-08-18T11:00:00Z",
+    "endDate": "2025-08-18T13:00:00Z"
+  }
+]

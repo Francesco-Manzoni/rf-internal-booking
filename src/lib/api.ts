@@ -1,7 +1,7 @@
 import type { Booking, BookingListItem, Station } from '../types/api'
 
-const BASE_URL = 'https://605c94c36d85de00170da8b4.mockapi.io/stations'
-const BOOKINGS_BASE_URL = 'https://605c94c36d85de00170da8b4.mockapi.io/bookings'
+const BASE_URL = '/api/stations'
+const BOOKINGS_BASE_URL = '/api/bookings'
 
 export const stationsApi = {
   async getStationById(id: string): Promise<Station> {

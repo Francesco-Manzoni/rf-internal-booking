@@ -10,7 +10,8 @@
     "test": "vitest run",
     "lint": "eslint",
     "format": "prettier",
-    "check": "prettier --write . && eslint --fix"
+    "check": "prettier --write . && eslint --fix",
+    "cy:run": "wait-on http://localhost:3000 && cypress run"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
@@ -48,12 +49,14 @@
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
+    "cypress": "^15.0.0",
     "jsdom": "^26.0.0",
     "prettier": "^3.5.3",
     "react-dnd-test-backend": "^16.0.1",
     "typescript": "^5.7.2",
     "vite": "^6.3.5",
     "vitest": "^3.0.5",
+    "wait-on": "^8.0.4",
     "web-vitals": "^4.2.4"
   }
 }

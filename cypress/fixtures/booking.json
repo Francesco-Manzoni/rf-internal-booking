@@ -1,0 +1,9 @@
+{
+  "id": "1",
+  "stationId": "BER",
+  "customerName": "John Doe",
+  "startDate": "2025-08-25T10:00:00Z",
+  "endDate": "2025-08-25T12:00:00Z",
+  "pickupReturnStationId": "BER",
+  "pickupReturnStationName": "Berlin"
+}

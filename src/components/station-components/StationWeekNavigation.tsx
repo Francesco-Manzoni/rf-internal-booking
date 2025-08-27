@@ -31,6 +31,7 @@ export const StationWeekNavigation = ({
             variant="outline"
             onClick={onPrevWeek}
             size="sm"
+            data-testid="previous-week-button"
             className="flex items-center justify-center"
           >
             <ArrowLeft className="h-4 w-4 mr-0 md:mr-2" />
@@ -45,6 +46,7 @@ export const StationWeekNavigation = ({
             variant="outline"
             onClick={onNextWeek}
             size="sm"
+            data-testid="next-week-button"
             className="flex items-center justify-center"
           >
             <span className="hidden md:inline">
