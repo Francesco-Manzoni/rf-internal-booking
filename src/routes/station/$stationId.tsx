@@ -9,28 +9,36 @@ import { StationWeekNavigationSkeleton } from '@/components/StationWeekNavigatio
 import { StationWeekSummary } from '@/components/StationWeekSummary'
 import { StationWeekSummarySkeleton } from '@/components/StationWeekSummarySkeleton'
 import { useQueryClient } from '@tanstack/react-query'
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { useCallback, useState } from 'react'
-import { de, enUS, es, it } from 'react-day-picker/locale'
+import { createFileRoute, useSearch, useNavigate } from '@tanstack/react-router'
+import React, { useCallback, useEffect } from 'react'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { useTranslation } from 'react-i18next'
-import { useBookingsByStation, useStation } from '../../hooks/useApi'
+import { useBookingsByStation } from '../../hooks/useApi'
 import type { BookingListItem } from '../../types/api'
 
 export const Route = createFileRoute('/station/$stationId')({
   component: StationCalendarPage,
+  validateSearch: (search: Record<string, unknown>) => {
+    // Accept ?week=number in query
+    return {
+      week:
+        typeof search.week === 'string' && !isNaN(Number(search.week))
+          ? search.week
+          : undefined,
+    }
+  },
 })
 
 function StationCalendarPage() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const { stationId } = Route.useParams()
-  const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const [currentWeek, setCurrentWeek] = useState(0)
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false)
+  const search = useSearch({ strict: false })
+  const weekParam =
+    search.week && !isNaN(Number(search.week)) ? parseInt(search.week, 10) : 0
+  const [currentWeek, setCurrentWeek] = React.useState<number>(weekParam)
 
-  const { data: station } = useStation(stationId)
   const {
     data: bookings = [],
     isLoading,
@@ -110,11 +118,17 @@ function StationCalendarPage() {
     [stationId, t, queryClient],
   )
 
-  // Calculate current week dates
+  // Calculate current week dates (Monday as first day)
   const getWeekDates = (weekOffset: number) => {
     const today = new Date()
+    // getDay(): Sunday=0, Monday=1, ..., Saturday=6
+    // We want Monday as first day
+    const day = today.getDay()
+    // Calculate how many days to subtract to get to Monday
+    const diffToMonday = (day === 0 ? -6 : 1) - day
     const startOfWeek = new Date(today)
-    startOfWeek.setDate(today.getDate() - today.getDay() + weekOffset * 7)
+    startOfWeek.setDate(today.getDate() + diffToMonday + weekOffset * 7)
+    startOfWeek.setHours(0, 0, 0, 0)
 
     const dates = []
     for (let i = 0; i < 7; i++) {
@@ -136,36 +150,18 @@ function StationCalendarPage() {
     t('station.days.sunday'),
   ]
 
-  // Filter bookings by date
-  const getBookingsForDate = (date: Date): Array<BookingListItem> => {
-    const dateString = date.toISOString().split('T')[0]
-    return bookings.filter((booking) => {
-      const startDate = booking.startDate.split('T')[0]
-      const endDate = booking.endDate.split('T')[0]
-      return startDate === dateString || endDate === dateString
-    })
-  }
-
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-    })
-  }
-
-  const getBookingType = (booking: BookingListItem, date: Date) => {
-    const dateString = date.toISOString().split('T')[0]
-    const startDate = booking.startDate.split('T')[0]
-    const endDate = booking.endDate.split('T')[0]
-    if (startDate === dateString && endDate === dateString) {
-      return 'same-day'
-    } else if (startDate === dateString) {
-      return 'pickup'
-    } else if (endDate === dateString) {
-      return 'return'
+  // Update the URL query param when currentWeek changes
+  const navigate = useNavigate()
+  useEffect(() => {
+    // Only update if different
+    if (weekParam !== currentWeek) {
+      navigate({
+        // @ts-expect-error: week is a valid search param for this route
+        search: { ...search, week: String(currentWeek) },
+        replace: true,
+      })
     }
-    return 'ongoing'
-  }
+  }, [currentWeek])
 
   const handlePrevWeek = () => {
     setCurrentWeek((prev) => prev - 1)
@@ -173,10 +169,6 @@ function StationCalendarPage() {
 
   const handleNextWeek = () => {
     setCurrentWeek((prev) => prev + 1)
-  }
-
-  const handleBackToHome = () => {
-    navigate({ to: '/' })
   }
 
   const handleDateSelect = (date: Date | undefined) => {
@@ -188,19 +180,25 @@ function StationCalendarPage() {
     const selected = new Date(date)
     selected.setHours(0, 0, 0, 0)
 
-    // Calculate the difference in milliseconds and then in days
-    const msPerDay = 1000 * 60 * 60 * 24
-    const dayDiff = Math.floor(
-      (selected.getTime() - today.getTime()) / msPerDay,
-    )
+    // Align both dates to the start of their week (Monday as start)
+    const getMonday = (d: Date) => {
+      const day = d.getDay()
+      const diff = (day === 0 ? -6 : 1) - day // Monday=1, Sunday=0
+      const monday = new Date(d)
+      monday.setDate(d.getDate() + diff)
+      monday.setHours(0, 0, 0, 0)
+      return monday
+    }
 
-    // Calculate the week offset from the day difference
-    const weekOffset = Math.floor(
-      (dayDiff - today.getDay() + selected.getDay()) / 7,
+    const thisMonday = getMonday(today)
+    const selectedMonday = getMonday(selected)
+
+    const msPerWeek = 1000 * 60 * 60 * 24 * 7
+    const weekOffset = Math.round(
+      (selectedMonday.getTime() - thisMonday.getTime()) / msPerWeek,
     )
 
     setCurrentWeek(weekOffset)
-    setIsCalendarOpen(false) // Close the popover after selection
   }
 
   if (isLoading) {
@@ -236,13 +234,16 @@ function StationCalendarPage() {
     <DndProvider backend={HTML5Backend}>
       <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-blue-100">
         <div className="container mx-auto px-4 py-4">
-          <StationHeader stationId={stationId} />
+          <StationHeader
+            stationId={stationId}
+            currentWeek={currentWeek}
+            onDateSelect={handleDateSelect}
+          />
 
           <StationWeekNavigation
             weekDates={weekDates}
             onPrevWeek={handlePrevWeek}
             onNextWeek={handleNextWeek}
-            onDateSelect={handleDateSelect}
           />
 
           <StationMobileCalendar

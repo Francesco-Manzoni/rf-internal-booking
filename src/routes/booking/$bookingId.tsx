@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, useNavigate, useSearch } from '@tanstack/react-router'
 import {
   ArrowLeft,
   Calendar,
@@ -24,11 +24,36 @@ function BookingDetailPage() {
 
   const { data: booking, isLoading, error } = useBooking(bookingId)
 
+  // Helper to get week offset for the booking's start date
+  const getWeekOffset = (dateString: string) => {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const date = new Date(dateString)
+    date.setHours(0, 0, 0, 0)
+    // Align both dates to the start of their week (Monday as start)
+    const getMonday = (d: Date) => {
+      const day = d.getDay()
+      const diff = (day === 0 ? -6 : 1) - day // Monday=1, Sunday=0
+      const monday = new Date(d)
+      monday.setDate(d.getDate() + diff)
+      monday.setHours(0, 0, 0, 0)
+      return monday
+    }
+    const thisMonday = getMonday(today)
+    const bookingMonday = getMonday(date)
+    const msPerWeek = 1000 * 60 * 60 * 24 * 7
+    return Math.round(
+      (bookingMonday.getTime() - thisMonday.getTime()) / msPerWeek,
+    )
+  }
+
   const handleBackToCalendar = () => {
     if (booking) {
+      const week = getWeekOffset(booking.startDate)
       navigate({
         to: '/station/$stationId',
         params: { stationId: booking.pickupReturnStationId },
+        search: { week: String(week) },
       })
     } else {
       navigate({ to: '/' })

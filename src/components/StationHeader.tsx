@@ -12,7 +12,15 @@ import { de, enUS, es, it } from 'react-day-picker/locale'
 import { useTranslation } from 'react-i18next'
 import { useStation } from '../hooks/useApi'
 
-export const StationHeader = ({ stationId }: { stationId: string }) => {
+export const StationHeader = ({
+  stationId,
+  onDateSelect,
+  currentWeek,
+}: {
+  stationId: string
+  onDateSelect: (date: Date) => void
+  currentWeek: number
+}) => {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
@@ -68,8 +76,21 @@ export const StationHeader = ({ stationId }: { stationId: string }) => {
                         : enUS
               }
               mode="single"
-              selected={new Date()}
-              onSelect={() => {}}
+              selected={
+                currentWeek === 0
+                  ? new Date()
+                  : new Date(
+                      new Date().setDate(
+                        new Date().getDate() + currentWeek * 7,
+                      ),
+                    )
+              }
+              onSelect={(date) => {
+                if (date) {
+                  setIsCalendarOpen(false)
+                  onDateSelect(date)
+                }
+              }}
             />
           </PopoverContent>
         </Popover>
