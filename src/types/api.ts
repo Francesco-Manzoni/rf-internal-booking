@@ -4,6 +4,14 @@ export interface Station {
   bookings?: Array<BookingListItem>
 }
 
+export interface StationWithStats extends Station {
+  weeklyStats: {
+    pickups: number
+    returns: number
+    total: number
+  }
+}
+
 export interface Booking {
   id: string
   customerName: string
