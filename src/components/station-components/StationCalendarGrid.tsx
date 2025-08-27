@@ -1,7 +1,7 @@
-import { DroppableDateCell } from './DroppableDateCellProps'
-import { DraggableBookingCard } from './DraggableBookingCard'
+import { DroppableDateCell } from '../DroppableDateCellProps'
+import { DraggableBookingCard } from '../DraggableBookingCard'
 import { useTranslation } from 'react-i18next'
-import type { BookingListItem } from '../types/api'
+import type { BookingListItem } from '../../types/api'
 
 interface StationCalendarGridProps {
   weekDates: Array<Date>

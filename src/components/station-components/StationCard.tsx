@@ -1,5 +1,5 @@
 import { MapPin, TrendingDown, TrendingUp } from 'lucide-react'
-import type { Station } from '../types/api'
+import type { Station } from '../../types/api'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'

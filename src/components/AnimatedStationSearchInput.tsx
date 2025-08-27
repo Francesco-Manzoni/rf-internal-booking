@@ -11,7 +11,10 @@ import type { StationWithStats } from '@/types/api'
 import { Calendar, MapPin, X } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StationCard, StationCardSkeleton } from '../components/StationCard'
+import {
+  StationCard,
+  StationCardSkeleton,
+} from './station-components/StationCard'
 import { debounce } from '@/lib/utils'
 
 interface AnimatedStationSearchInputProps {

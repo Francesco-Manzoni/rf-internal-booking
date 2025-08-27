@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from 'react-i18next'
-import type { BookingListItem } from '../types/api'
+import type { BookingListItem } from '../../types/api'
 
 interface StationWeekSummaryProps {
   weekDates: Array<Date>

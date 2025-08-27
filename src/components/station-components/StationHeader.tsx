@@ -10,7 +10,7 @@ import { Calendar as CalendarIcon, ChevronLeft, MapPin } from 'lucide-react'
 import { useState } from 'react'
 import { de, enUS, es, it } from 'react-day-picker/locale'
 import { useTranslation } from 'react-i18next'
-import { useStation } from '../hooks/useApi'
+import { useStation } from '../../hooks/useApi'
 
 export const StationHeader = ({
   stationId,

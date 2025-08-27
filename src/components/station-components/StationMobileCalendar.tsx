@@ -1,4 +1,4 @@
-import type { BookingListItem } from '../types/api'
+import type { BookingListItem } from '../../types/api'
 
 interface StationMobileCalendarProps {
   weekDates: Array<Date>
