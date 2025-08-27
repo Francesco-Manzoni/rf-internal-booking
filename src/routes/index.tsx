@@ -2,6 +2,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Calendar, MapPin, Users } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useStationSearch } from '../hooks/useApi'
 import { useStationWeeklyStats } from '../hooks/useStationWeeklyStats'
 import { AnimatedStationSearchInput } from '@/components/AnimatedStationSearchInput'
@@ -11,6 +12,7 @@ export const Route = createFileRoute('/')({
 })
 
 function HomePage() {
+  const { t } = useTranslation()
   const [selectedStation, setSelectedStation] = useState<string>('')
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [isSearchFocused, setIsSearchFocused] = useState<boolean>(false)
@@ -53,11 +55,10 @@ function HomePage() {
       >
         <div className="flex justify-center mb-6"></div>
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          🏕️ Campervan Booking Dashboard
+          {t('home.title')}
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Manage pickups and returns for your campervan rental stations. Select
-          a station to view the calendar and manage bookings.
+          {t('home.subtitle')}
         </p>
       </div>
 
@@ -90,10 +91,10 @@ function HomePage() {
             <CardContent className="pt-6">
               <Calendar className="h-8 w-8 text-blue-600 mx-auto mb-3" />
               <h3 className="font-semibold text-gray-900 mb-2">
-                Calendar View
+                {t('home.features.calendar.title')}
               </h3>
               <p className="text-sm text-gray-600">
-                Week-by-week calendar showing all pickups and returns
+                {t('home.features.calendar.description')}
               </p>
             </CardContent>
           </Card>
@@ -102,10 +103,10 @@ function HomePage() {
             <CardContent className="pt-6">
               <Users className="h-8 w-8 text-green-600 mx-auto mb-3" />
               <h3 className="font-semibold text-gray-900 mb-2">
-                Booking Details
+                {t('home.features.booking.title')}
               </h3>
               <p className="text-sm text-gray-600">
-                Complete customer and booking information at your fingertips
+                {t('home.features.booking.description')}
               </p>
             </CardContent>
           </Card>
@@ -114,10 +115,10 @@ function HomePage() {
             <CardContent className="pt-6">
               <MapPin className="h-8 w-8 text-purple-600 mx-auto mb-3" />
               <h3 className="font-semibold text-gray-900 mb-2">
-                Station Management
+                {t('home.features.station.title')}
               </h3>
               <p className="text-sm text-gray-600">
-                Manage multiple stations with real-time booking updates
+                {t('home.features.station.description')}
               </p>
             </CardContent>
           </Card>

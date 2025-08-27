@@ -9,7 +9,8 @@ import {
 import { Input } from '@/components/ui/input'
 import type { StationWithStats } from '@/types/api'
 import { Calendar, MapPin, X } from 'lucide-react'
-import { useRef, useState } from 'react' // Import useCallback
+import { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { StationCard, StationCardSkeleton } from '../components/StationCard'
 import { debounce } from '@/lib/utils'
 
@@ -34,6 +35,7 @@ export function AnimatedStationSearchInput({
   isLoading,
   stationsWithStats,
 }: AnimatedStationSearchInputProps) {
+  const { t } = useTranslation()
   const [value, setValue] = useState(searchQuery)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -114,10 +116,10 @@ export function AnimatedStationSearchInput({
               `}
             >
               <CardTitle className="text-2xl font-semibold text-gray-900">
-                Select Station
+                {t('home.search.select_station')}
               </CardTitle>
               <CardDescription className="text-gray-600">
-                Choose a rental station to view bookings and manage the calendar
+                {t('home.search.choose_station')}
               </CardDescription>
             </CardHeader>
 
@@ -128,16 +130,6 @@ export function AnimatedStationSearchInput({
               `}
             >
               <div className="space-y-2">
-                <label
-                  htmlFor="station-select"
-                  className={`
-                      text-sm font-medium text-gray-700 transition-all duration-500 ease-in-out
-                      ${isSearchFocused ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'}
-                    `}
-                >
-                  Station
-                </label>
-
                 <div className="flex items-center gap-4">
                   <div className="flex-1 relative">
                     <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -148,7 +140,10 @@ export function AnimatedStationSearchInput({
                       onChange={handleSearchChange}
                       onFocus={handleSearchFocus}
                       onBlur={handleSearchBlur}
-                      placeholder="Search for a station..."
+                      placeholder={t(
+                        'home.search.placeholder',
+                        'Search for a station...',
+                      )}
                       className={`
                           pl-10 pr-4 h-12 text-lg transition-all duration-500 ease-in-out
                           ${
@@ -180,7 +175,10 @@ export function AnimatedStationSearchInput({
               {!isSearchFocused && selectedStation && (
                 <div className="text-center py-4">
                   <p className="text-sm text-gray-600 mb-4">
-                    Station selected! Click below to view the calendar.
+                    {t(
+                      'home.search.station_selected',
+                      'Station selected! Click below to view the calendar.',
+                    )}
                   </p>
                   <Button
                     onClick={() => handleStationSelect(selectedStation)}
@@ -188,7 +186,7 @@ export function AnimatedStationSearchInput({
                     size="lg"
                   >
                     <Calendar className="mr-2 h-5 w-5" />
-                    View Station Calendar
+                    {t('home.search.view_calendar', 'View Station Calendar')}
                   </Button>
                 </div>
               )}
@@ -220,13 +218,17 @@ export function AnimatedStationSearchInput({
                       isSelected={selectedStation === station.id}
                     />
                   ))
-                ) : searchQuery ? ( // Use searchQuery here to show "No stations found for X" immediately
+                ) : searchQuery ? (
                   <div className="text-center py-8 text-gray-500">
-                    No stations found for "{searchQuery}"
+                    {t(
+                      'home.search.no_results',
+
+                      { query: searchQuery },
+                    )}
                   </div>
                 ) : (
                   <div className="text-center py-8 text-gray-400">
-                    Start typing to search for stations...
+                    {t('home.search.start_typing')}
                   </div>
                 )}
               </div>

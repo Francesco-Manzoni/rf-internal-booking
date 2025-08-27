@@ -1,0 +1,130 @@
+{
+  "common": {
+    "error": "Error loading data. Please try again.",
+    "loading": "Loading...",
+    "loading_bookings": "Loading bookings..."
+  },
+  "header": {
+    "title": "🏕️ Campervan Bookings"
+  },
+  "home": {
+    "features": {
+      "booking": {
+        "description": "Complete customer and booking information at your fingertips",
+        "title": "Booking Details"
+      },
+      "calendar": {
+        "description": "Week-by-week calendar showing all pickups and returns",
+        "title": "Calendar View"
+      },
+      "station": {
+        "description": "Manage multiple stations with real-time booking updates",
+        "title": "Station Management"
+      }
+    },
+    "search": {
+      "choose_station": "Choose a rental station to view bookings and manage the calendar",
+      "label": "Station",
+      "no_results": "No stations found",
+      "placeholder": "Search for a station...",
+      "select_station": "Select station",
+      "station_selected": "Station selected! Click below to view the calendar.",
+      "view_calendar": "View Station Calendar"
+    },
+    "subtitle": "Manage pickups and returns for your campervan rental stations. Select a station to view the calendar and manage bookings.",
+    "title": "🏕️ Campervan Booking Dashboard"
+  },
+  "home.search.no_results": "No stations found for {{query}}",
+  "home.search.start_typing": "Start typing to search...",
+  "station": {
+    "back_to_stations": "Back to stations",
+    "badges": {
+      "ongoing": "Ongoing",
+      "pickup": "Pickup",
+      "return": "Return",
+      "same_day": "Same Day"
+    },
+    "booking_types": {
+      "ongoing": "Ongoing",
+      "pickup": "Pickup",
+      "return": "Return",
+      "same_day": "Same Day"
+    },
+    "calendar": "Station Calendar",
+    "days": {
+      "friday": "Friday",
+      "monday": "Monday",
+      "saturday": "Saturday",
+      "sunday": "Sunday",
+      "thursday": "Thursday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday"
+    },
+    "error_loading": "Error loading bookings, please retry.",
+    "loading_bookings": "Loading bookings...",
+    "navigation": {
+      "next_week": "Next Week",
+      "previous_week": "Previous Week"
+    },
+    "no_bookings": "No bookings",
+    "week_summary": {
+      "pickups": "Pickups",
+      "returns": "Returns",
+      "title": "Week Summary",
+      "total_bookings": "Total Bookings",
+      "unique_customers": "Unique Customers"
+    }
+  },
+  "stationCard": {
+    "name": "{{name}}",
+    "pickups": "{{count}} pickups",
+    "returns": "{{count}} returns",
+    "this_week": "This week:",
+    "total": "{{count}} this week"
+  },
+  "booking": {
+    "title": "Booking Details",
+    "loading": "Loading booking details...",
+    "error": "Error loading booking details. Please try again.",
+    "go_back": "Go Back",
+    "back_to_calendar": "Back to Calendar",
+    "duration": {
+      "one_day": "1 day",
+      "multiple_days": "{{count}} days"
+    },
+    "status": {
+      "upcoming": "Upcoming",
+      "active": "Active",
+      "completed": "Completed"
+    },
+    "customer_info": {
+      "title": "Customer Information",
+      "name": "Customer Name",
+      "booking_id": "Booking ID"
+    },
+    "timeline": {
+      "title": "Booking Timeline",
+      "pickup": "Pickup Date & Time",
+      "return": "Return Date & Time",
+      "duration": "Duration"
+    },
+    "station_info": {
+      "title": "Station Information",
+      "station": "Pickup & Return Station",
+      "station_id": "Station ID",
+      "note_title": "Station Note",
+      "note": "All pickups and returns are processed at the same station location. Please ensure the vehicle is returned clean and with a full tank."
+    },
+    "actions": {
+      "title": "Actions",
+      "view_calendar": "View Station Calendar",
+      "copy_details": "Copy Details",
+      "copy_details_content": "Booking Details",
+      "copy_success": "Booking details copied to clipboard!",
+      "copy_error": "Failed to copy booking details",
+      "send_email": "Send Email",
+      "email_subject": "Booking Confirmation - {{customerName}}",
+      "email_body": "Dear {{customerName}},\n\nYour campervan booking is confirmed:\n\nBooking ID: {{bookingId}}\nPickup: {{pickupDate}}\nReturn: {{returnDate}}\nDuration: {{duration}}\nStation: {{stationName}}\n\nPlease arrive 15 minutes before your pickup time.\n\nBest regards,\nThe Roadsurfer Team"
+    }
+  }
+}

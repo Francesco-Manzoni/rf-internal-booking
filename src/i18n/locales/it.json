@@ -1,0 +1,129 @@
+{
+  "common": {
+    "error": "Errore nel caricamento dei dati. Riprova.",
+    "loading": "Caricamento...",
+    "loading_bookings": "Caricamento prenotazioni..."
+  },
+  "header": {
+    "title": "🏕️ Prenotazioni Camper"
+  },
+  "home": {
+    "features": {
+      "booking": {
+        "description": "Informazioni complete su clienti e prenotazioni a portata di mano",
+        "title": "Dettagli Prenotazione"
+      },
+      "calendar": {
+        "description": "Calendario settimanale che mostra tutti i ritiri e i rientri",
+        "title": "Vista Calendario"
+      },
+      "station": {
+        "description": "Gestisci più stazioni con aggiornamenti delle prenotazioni in tempo reale",
+        "title": "Gestione Stazioni"
+      }
+    },
+    "search": {
+      "choose_station": "Scegli una stazione di noleggio per visualizzare le prenotazioni e gestire il calendario",
+      "label": "Stazione",
+      "no_results": "Nessuna stazione trovata",
+      "placeholder": "Cerca una stazione...",
+      "select_station": "Seleziona la stazione",
+      "station_selected": "Stazione selezionata!\nFai clic di seguito per visualizzare il calendario.",
+      "view_calendar": "Visualizza il calendario della stazione"
+    },
+    "subtitle": "Gestisci ritiri e rientri per le tue stazioni di noleggio camper. Seleziona una stazione per visualizzare il calendario e gestire le prenotazioni.",
+    "title": "🏕️ Dashboard Prenotazioni Camper"
+  },
+  "home.search.no_results": "",
+  "station": {
+    "back_to_stations": "Torna alle stazioni",
+    "badges": {
+      "ongoing": "In corso",
+      "pickup": "Ritiro",
+      "return": "Rientro",
+      "same_day": "Stesso Giorno"
+    },
+    "booking_types": {
+      "ongoing": "In Corso",
+      "pickup": "Ritiro",
+      "return": "Rientro",
+      "same_day": "Stesso Giorno"
+    },
+    "calendar": "Calendario Stazione",
+    "days": {
+      "friday": "Venerdì",
+      "monday": "Lunedì",
+      "saturday": "Sabato",
+      "sunday": "Domenica",
+      "thursday": "Giovedì",
+      "tuesday": "Martedì",
+      "wednesday": "Mercoledì"
+    },
+    "error_loading": "Errore nel caricamento delle prenotazioni, riprova.",
+    "loading_bookings": "Caricamento prenotazioni...",
+    "navigation": {
+      "next_week": "Prossima Settimana",
+      "previous_week": "Settimana Precedente"
+    },
+    "no_bookings": "Nessuna prenotazione",
+    "week_summary": {
+      "pickups": "Ritiri",
+      "returns": "Rientri",
+      "title": "Riepilogo Settimana",
+      "total_bookings": "Prenotazioni Totali",
+      "unique_customers": "Clienti Unici"
+    }
+  },
+  "stationCard": {
+    "name": "{{name}}",
+    "pickups": "{{count}} ritiri",
+    "returns": "{{count}} rientri",
+    "this_week": "Questa settimana:",
+    "total": "{{count}} questa settimana"
+  },
+  "booking": {
+    "title": "Dettagli Prenotazione",
+    "loading": "Caricamento dettagli prenotazione...",
+    "error": "Errore nel caricamento dei dettagli della prenotazione. Riprova.",
+    "go_back": "Torna Indietro",
+    "back_to_calendar": "Torna al Calendario",
+    "duration": {
+      "one_day": "1 giorno",
+      "multiple_days": "{{count}} giorni"
+    },
+    "status": {
+      "upcoming": "In Arrivo",
+      "active": "Attiva",
+      "completed": "Completata"
+    },
+    "customer_info": {
+      "title": "Informazioni Cliente",
+      "name": "Nome Cliente",
+      "booking_id": "ID Prenotazione"
+    },
+    "timeline": {
+      "title": "Cronologia Prenotazione",
+      "pickup": "Data e Ora Ritiro",
+      "return": "Data e Ora Rientro",
+      "duration": "Durata"
+    },
+    "station_info": {
+      "title": "Informazioni Stazione",
+      "station": "Stazione Ritiro e Rientro",
+      "station_id": "ID Stazione",
+      "note_title": "Nota Stazione",
+      "note": "Tutti i ritiri e i rientri vengono elaborati nella stessa ubicazione della stazione. Assicurati che il veicolo venga restituito pulito e con il serbatoio pieno."
+    },
+    "actions": {
+      "title": "Azioni",
+      "view_calendar": "Visualizza Calendario Stazione",
+      "copy_details": "Copia Dettagli",
+      "copy_details_content": "Dettagli Prenotazione",
+      "copy_success": "Dettagli prenotazione copiati negli appunti!",
+      "copy_error": "Impossibile copiare i dettagli della prenotazione",
+      "send_email": "Invia Email",
+      "email_subject": "Conferma Prenotazione - {{customerName}}",
+      "email_body": "Caro {{customerName}},\n\nLa tua prenotazione camper è confermata:\n\nID Prenotazione: {{bookingId}}\nRitiro: {{pickupDate}}\nRientro: {{returnDate}}\nDurata: {{duration}}\nStazione: {{stationName}}\n\nSi prega di arrivare 15 minuti prima dell'orario di ritiro.\n\nCordiali saluti,\nIl Team Roadsurfer"
+    }
+  }
+}

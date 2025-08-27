@@ -17,14 +17,17 @@ import {
   MapPin,
 } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useBookingsByStation, useStation } from '../../hooks/useApi'
 import type { BookingListItem } from '../../types/api'
+import { es, enUS, it, de } from 'react-day-picker/locale'
 
 export const Route = createFileRoute('/station/$stationId')({
   component: StationCalendarPage,
 })
 
 function StationCalendarPage() {
+  const { t, i18n } = useTranslation()
   const { stationId } = Route.useParams()
   const navigate = useNavigate()
   const [currentWeek, setCurrentWeek] = useState(0)
@@ -54,13 +57,13 @@ function StationCalendarPage() {
 
   const weekDates = getWeekDates(currentWeek)
   const weekDays = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday',
+    t('station.days.monday'),
+    t('station.days.tuesday'),
+    t('station.days.wednesday'),
+    t('station.days.thursday'),
+    t('station.days.friday'),
+    t('station.days.saturday'),
+    t('station.days.sunday'),
   ]
 
   // Filter bookings by date
@@ -110,13 +113,14 @@ function StationCalendarPage() {
   const getBadgeText = (type: string) => {
     switch (type) {
       case 'pickup':
-        return 'Pickup'
+        return t('station.badges.pickup', 'Pickup')
       case 'return':
-        return 'Return'
+        return
+        return t('station.badges.return', 'Return')
       case 'same-day':
-        return 'Same Day'
+        return t('station.badges.same_day', 'Pickup & Return')
       default:
-        return 'Ongoing'
+        return t('station.badges.ongoing', 'Ongoing')
     }
   }
 
@@ -160,7 +164,9 @@ function StationCalendarPage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center min-h-64">
-          <div className="text-lg">Loading bookings...</div>
+          <div className="text-lg">
+            {t('station.loading_bookings', 'Loading bookings...')}
+          </div>
         </div>
       </div>
     )
@@ -171,7 +177,7 @@ function StationCalendarPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center min-h-64">
           <div className="text-lg text-red-600">
-            Error loading bookings. Please try again.
+            {t('station.error_loading', 'Error loading bookings.')}
           </div>
         </div>
       </div>
@@ -191,7 +197,9 @@ function StationCalendarPage() {
               className="shrink-0"
             >
               <ChevronLeft className="h-5 w-5 mr-1" />
-              <div className="text-lg">Back to Stations</div>
+              <div className="text-lg">
+                {t('station.back_to_stations', 'Back to Stations')}
+              </div>
             </Button>
           </div>
           <div className="flex items-center justify-between w-full mt-2 mb-4">
@@ -213,6 +221,17 @@ function StationCalendarPage() {
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="end">
                 <Calendar
+                  locale={
+                    i18n.language === 'en'
+                      ? enUS
+                      : i18n.language === 'it'
+                        ? it
+                        : i18n.language === 'de'
+                          ? de
+                          : i18n.language === 'es'
+                            ? es
+                            : enUS
+                  }
                   mode="single"
                   selected={
                     weekDates[0] // Select the first day of the current week
@@ -235,7 +254,9 @@ function StationCalendarPage() {
                 className="flex items-center justify-center"
               >
                 <ArrowLeft className="h-4 w-4 mr-0 md:mr-2" />
-                <span className="hidden md:inline">Previous Week</span>
+                <span className="hidden md:inline">
+                  {t('station.navigation.previous_week', 'Previous Week')}
+                </span>
               </Button>
               <CardTitle className="text-lg text-center flex-1">
                 {formatDate(weekDates[0])} - {formatDate(weekDates[6])}
@@ -246,7 +267,9 @@ function StationCalendarPage() {
                 size="sm"
                 className="flex items-center justify-center"
               >
-                <span className="hidden md:inline">Next Week</span>
+                <span className="hidden md:inline">
+                  {t('station.navigation.next_week', 'Next Week')}
+                </span>
                 <ArrowRight className="h-4 w-4 ml-0 md:ml-2" />
               </Button>
             </div>
@@ -335,7 +358,7 @@ function StationCalendarPage() {
                 <CardContent className="space-y-2">
                   {dayBookings.length === 0 ? (
                     <p className="text-sm text-gray-400 text-center">
-                      No bookings
+                      {t('station.no_bookings', 'No bookings')}
                     </p>
                   ) : (
                     dayBookings.map((booking) => {
@@ -376,7 +399,9 @@ function StationCalendarPage() {
         {/* Summary */}
         <Card className="mt-8">
           <CardHeader>
-            <CardTitle>Week Summary</CardTitle>
+            <CardTitle>
+              {t('station.week_summary.title', 'Week Summary')}
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
@@ -391,7 +416,9 @@ function StationCalendarPage() {
                     }).length
                   }
                 </div>
-                <div className="text-sm text-gray-600">Pickups</div>
+                <div className="text-sm text-gray-600">
+                  {t('station.week_summary.pickups', 'Pickups')}
+                </div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-green-600">
@@ -404,19 +431,28 @@ function StationCalendarPage() {
                     }).length
                   }
                 </div>
-                <div className="text-sm text-gray-600">Returns</div>
+                <div className="text-sm text-gray-600">
+                  {t('station.week_summary.returns', 'Returns')}
+                </div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-purple-600">
                   {new Set(bookings.map((b) => b.customerName)).size}
                 </div>
-                <div className="text-sm text-gray-600">Unique Customers</div>
+                <div className="text-sm text-gray-600">
+                  {t(
+                    'station.week_summary.unique_customers',
+                    'Unique Customers',
+                  )}
+                </div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-orange-600">
                   {bookings.length}
                 </div>
-                <div className="text-sm text-gray-600">Total Bookings</div>
+                <div className="text-sm text-gray-600">
+                  {t('station.week_summary.total_bookings', 'Total Bookings')}
+                </div>
               </div>
             </div>
           </CardContent>

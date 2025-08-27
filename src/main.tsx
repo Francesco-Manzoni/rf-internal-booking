@@ -4,6 +4,9 @@ import { RouterProvider, createRouter } from '@tanstack/react-router'
 
 import * as TanStackQueryProvider from './integrations/tanstack-query/root-provider.tsx'
 
+// Import i18n configuration
+import './i18n'
+
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
 

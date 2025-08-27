@@ -3,6 +3,7 @@ import type { Station } from '../types/api'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useTranslation } from 'react-i18next'
 
 interface StationWithStats extends Station {
   weeklyStats: {
@@ -23,6 +24,7 @@ export function StationCard({
   onClick,
   isSelected = false,
 }: StationCardProps) {
+  const { t } = useTranslation()
   return (
     <Card
       className={`
@@ -45,25 +47,29 @@ export function StationCard({
 
             <div className="flex items-center gap-4 mt-2">
               <span className="text-gray-500 text-xs font-medium">
-                This week:
+                {t('stationCard.this_week', 'This week:')}
               </span>
               <div className="flex items-center gap-1">
                 <TrendingUp className="h-3 w-3 text-green-600" />
                 <span className="text-xs text-gray-600">
-                  {station.weeklyStats.pickups} pickups
+                  {t('stationCard.pickups', {
+                    count: station.weeklyStats.pickups,
+                  })}
                 </span>
               </div>
               <div className="flex items-center gap-1">
                 <TrendingDown className="h-3 w-3 text-orange-600" />
                 <span className="text-xs text-gray-600">
-                  {station.weeklyStats.returns} returns
+                  {t('stationCard.returns', {
+                    count: station.weeklyStats.returns,
+                  })}
                 </span>
               </div>
             </div>
 
             {station.weeklyStats.total > 0 && (
               <Badge variant="secondary" className="mt-2 text-xs">
-                {station.weeklyStats.total} this week
+                {t('stationCard.total', { count: station.weeklyStats.total })}
               </Badge>
             )}
           </div>

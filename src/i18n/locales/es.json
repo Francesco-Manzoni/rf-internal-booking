@@ -1,0 +1,129 @@
+{
+  "common": {
+    "error": "Error al cargar los datos. Inténtalo de nuevo.",
+    "loading": "Cargando...",
+    "loading_bookings": "Cargando reservas..."
+  },
+  "header": {
+    "title": "🏕️ Reservas de autocaravanas"
+  },
+  "home": {
+    "features": {
+      "booking": {
+        "description": "Información completa del cliente y de la reserva al alcance de tu mano",
+        "title": "Detalles de la reserva"
+      },
+      "calendar": {
+        "description": "Calendario semanal con todas las recogidas y devoluciones",
+        "title": "Vista de calendario"
+      },
+      "station": {
+        "description": "Gestiona múltiples estaciones con actualizaciones de reservas en tiempo real",
+        "title": "Gestión de estaciones"
+      }
+    },
+    "search": {
+      "choose_station": "Elige una estación de alquiler para ver las reservas y gestionar el calendario",
+      "label": "Estación",
+      "no_results": "No se encontraron estaciones",
+      "placeholder": "Buscar una estación...",
+      "select_station": "Seleccionar estación",
+      "station_selected": "¡Estación seleccionada! Haz clic abajo para ver el calendario.",
+      "view_calendar": "Ver calendario de la estación",
+      "start_typing": "Empieza a escribir para buscar..."
+    },
+    "subtitle": "Gestiona recogidas y devoluciones de tus estaciones de alquiler de autocaravanas. Selecciona una estación para ver el calendario y gestionar las reservas.",
+    "title": "🏕️ Panel de reservas de autocaravanas"
+  },
+  "station": {
+    "back_to_stations": "Volver a estaciones",
+    "badges": {
+      "ongoing": "En curso",
+      "pickup": "Recogida",
+      "return": "Devolución",
+      "same_day": "Mismo día"
+    },
+    "booking_types": {
+      "ongoing": "En curso",
+      "pickup": "Recogida",
+      "return": "Devolución",
+      "same_day": "Mismo día"
+    },
+    "calendar": "Calendario de la estación",
+    "days": {
+      "friday": "Viernes",
+      "monday": "Lunes",
+      "saturday": "Sábado",
+      "sunday": "Domingo",
+      "thursday": "Jueves",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles"
+    },
+    "error_loading": "Error al cargar las reservas. Inténtalo de nuevo.",
+    "loading_bookings": "Cargando reservas...",
+    "navigation": {
+      "next_week": "Semana siguiente",
+      "previous_week": "Semana anterior"
+    },
+    "no_bookings": "No hay reservas",
+    "week_summary": {
+      "pickups": "Recogidas",
+      "returns": "Devoluciones",
+      "title": "Resumen semanal",
+      "total_bookings": "Reservas totales",
+      "unique_customers": "Clientes únicos"
+    }
+  },
+  "stationCard": {
+    "name": "{{name}}",
+    "pickups": "{{count}} recogidas",
+    "returns": "{{count}} devoluciones",
+    "this_week": "Esta semana:",
+    "total": "{{count}} esta semana"
+  },
+  "booking": {
+    "title": "Detalles de la reserva",
+    "loading": "Cargando detalles de la reserva...",
+    "error": "Error al cargar los detalles de la reserva. Inténtalo de nuevo.",
+    "go_back": "Volver",
+    "back_to_calendar": "Volver al calendario",
+    "duration": {
+      "one_day": "1 día",
+      "multiple_days": "{{count}} días"
+    },
+    "status": {
+      "upcoming": "Próximamente",
+      "active": "Activa",
+      "completed": "Completada"
+    },
+    "customer_info": {
+      "title": "Información del cliente",
+      "name": "Nombre del cliente",
+      "booking_id": "ID de reserva"
+    },
+    "timeline": {
+      "title": "Cronograma de la reserva",
+      "pickup": "Fecha y hora de recogida",
+      "return": "Fecha y hora de devolución",
+      "duration": "Duración"
+    },
+    "station_info": {
+      "title": "Información de la estación",
+      "station": "Estación de recogida y devolución",
+      "station_id": "ID de la estación",
+      "note_title": "Nota de la estación",
+      "note": "Todas las recogidas y devoluciones se realizan en la misma ubicación. Asegúrate de devolver el vehículo limpio y con el tanque lleno."
+    },
+    "actions": {
+      "title": "Acciones",
+      "view_calendar": "Ver calendario de la estación",
+      "copy_details": "Copiar detalles",
+      "copy_details_content": "Detalles de la reserva",
+      "copy_success": "¡Detalles de la reserva copiados al portapapeles!",
+      "copy_error": "Error al copiar los detalles de la reserva",
+      "send_email": "Enviar correo",
+      "email_subject": "Confirmación de reserva - {{customerName}}",
+      "email_body": "Estimado(a) {{customerName}},\n\nSu reserva de autocaravana ha sido confirmada:\n\nID de reserva: {{bookingId}}\nRecogida: {{pickupDate}}\nDevolución: {{returnDate}}\nDuración: {{duration}}\nEstación: {{stationName}}\n\nPor favor, llegue 15 minutos antes de la hora de recogida.\n\nSaludos cordiales,\nEl equipo de Roadsurfer"
+    }
+  }
+}
