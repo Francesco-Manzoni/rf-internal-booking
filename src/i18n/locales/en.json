@@ -73,6 +73,13 @@
       "title": "Week Summary",
       "total_bookings": "Total Bookings",
       "unique_customers": "Unique Customers"
+    },
+    "reschedule": {
+      "success": "Successfully rescheduled {{type}} for {{customerName}}",
+      "error": {
+        "invalid_dates": "Pickup date cannot be after return date"
+      },
+      "drag_hint": "Drag bookings to reschedule pickup or return dates"
     }
   },
   "stationCard": {
