@@ -1,22 +1,15 @@
-import { DraggableBookingCard } from '@/components/DraggableBookingCard'
-import { DroppableDateCell } from '@/components/DroppableDateCellProps'
-import { Button } from '@/components/ui/button'
-import { Calendar } from '@/components/ui/calendar'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
+import { StationCalendarGrid } from '@/components/StationCalendarGrid'
+import { StationCalendarGridSkeleton } from '@/components/StationCalendarGridSkeleton'
+import { StationHeader } from '@/components/StationHeader'
+import { StationHeaderSkeleton } from '@/components/StationHeaderSkeleton'
+import { StationMobileCalendar } from '@/components/StationMobileCalendar'
+import { StationMobileCalendarSkeleton } from '@/components/StationMobileCalendarSkeleton'
+import { StationWeekNavigation } from '@/components/StationWeekNavigation'
+import { StationWeekNavigationSkeleton } from '@/components/StationWeekNavigationSkeleton'
+import { StationWeekSummary } from '@/components/StationWeekSummary'
+import { StationWeekSummarySkeleton } from '@/components/StationWeekSummarySkeleton'
 import { useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import {
-  ArrowLeft,
-  ArrowRight,
-  Calendar as CalendarIcon, // Renamed to avoid conflict
-  ChevronLeft,
-  MapPin,
-} from 'lucide-react'
 import { useCallback, useState } from 'react'
 import { de, enUS, es, it } from 'react-day-picker/locale'
 import { DndProvider } from 'react-dnd'
@@ -212,11 +205,16 @@ function StationCalendarPage() {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center justify-center min-h-64">
-          <div className="text-lg">
-            {t('station.loading_bookings', 'Loading bookings...')}
+      <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-blue-100">
+        <div className="container mx-auto px-4 py-4">
+          <div>
+            <StationHeaderSkeleton />
           </div>
+
+          <StationWeekNavigationSkeleton />
+          <StationMobileCalendarSkeleton />
+          <StationCalendarGridSkeleton />
+          <StationWeekSummarySkeleton />
         </div>
       </div>
     )
@@ -238,262 +236,29 @@ function StationCalendarPage() {
     <DndProvider backend={HTML5Backend}>
       <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-blue-100">
         <div className="container mx-auto px-4 py-4">
-          {/* Header: back button above, station name with pin, calendar on right */}
-          <div className="">
-            <div className="flex w-full mb-1">
-              <Button
-                variant="outline"
-                onClick={handleBackToHome}
-                size="lg"
-                className="shrink-0"
-              >
-                <ChevronLeft className="h-5 w-5 mr-1" />
-                <div className="text-lg">
-                  {t('station.back_to_stations', 'Back to Stations')}
-                </div>
-              </Button>
-            </div>
-            <div className="flex items-center justify-between w-full mt-2 mb-4">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-6 h-6 text-blue-600" />
-                <h1 className="text-3xl font-bold text-gray-900 leading-tight">
-                  {station ? station.name : 'Station Calendar'}
-                </h1>
-              </div>
-              <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="border-blue-100 bg-white hover:bg-blue-100"
-                  >
-                    <CalendarIcon className="h-5 w-5 text-blue-600" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="end">
-                  <Calendar
-                    locale={
-                      i18n.language === 'en'
-                        ? enUS
-                        : i18n.language === 'it'
-                          ? it
-                          : i18n.language === 'de'
-                            ? de
-                            : i18n.language === 'es'
-                              ? es
-                              : enUS
-                    }
-                    mode="single"
-                    selected={
-                      weekDates[0] // Select the first day of the current week
-                    }
-                    onSelect={handleDateSelect}
-                  />
-                </PopoverContent>
-              </Popover>
-            </div>
-          </div>
+          <StationHeader stationId={stationId} />
 
-          {/* Week Navigation */}
-          <Card className="mb-6">
-            <CardHeader>
-              <div className="flex flex-row items-center justify-between gap-2">
-                <Button
-                  variant="outline"
-                  onClick={handlePrevWeek}
-                  size="sm"
-                  className="flex items-center justify-center"
-                >
-                  <ArrowLeft className="h-4 w-4 mr-0 md:mr-2" />
-                  <span className="hidden md:inline">
-                    {t('station.navigation.previous_week', 'Previous Week')}
-                  </span>
-                </Button>
-                <CardTitle className="text-lg text-center flex-1">
-                  {formatDate(weekDates[0])} - {formatDate(weekDates[6])}
-                </CardTitle>
-                <Button
-                  variant="outline"
-                  onClick={handleNextWeek}
-                  size="sm"
-                  className="flex items-center justify-center"
-                >
-                  <span className="hidden md:inline">
-                    {t('station.navigation.next_week', 'Next Week')}
-                  </span>
-                  <ArrowRight className="h-4 w-4 ml-0 md:ml-2" />
-                </Button>
-              </div>
-            </CardHeader>
-          </Card>
+          <StationWeekNavigation
+            weekDates={weekDates}
+            onPrevWeek={handlePrevWeek}
+            onNextWeek={handleNextWeek}
+            onDateSelect={handleDateSelect}
+          />
 
-          <div className="block md:hidden mb-3">
-            {/* Day initials header */}
-            <div className="grid grid-cols-7 gap-1 text-center">
-              {weekDays.map((day) => (
-                <div key={day} className="py-2">
-                  <p className="text-sm font-medium text-gray-500">
-                    {day.charAt(0)}
-                  </p>
-                </div>
-              ))}
-            </div>
+          <StationMobileCalendar
+            weekDates={weekDates}
+            weekDays={weekDays}
+            bookings={bookings}
+          />
 
-            {/* Mobile calendar dates grid */}
-            <div className="grid grid-cols-7 gap-1">
-              {weekDates.map((date) => {
-                const dayBookings = getBookingsForDate(date)
-                const isToday =
-                  date.toDateString() === new Date().toDateString()
+          <StationCalendarGrid
+            weekDates={weekDates}
+            weekDays={weekDays}
+            bookings={bookings}
+            onReschedule={handleReschedule}
+          />
 
-                const hasPickup = dayBookings.some((b) =>
-                  ['pickup', 'same-day'].includes(getBookingType(b, date)),
-                )
-                const hasReturn = dayBookings.some((b) =>
-                  ['return', 'same-day'].includes(getBookingType(b, date)),
-                )
-
-                return (
-                  <div
-                    key={date.toISOString()}
-                    className={`flex flex-col items-center p-1 space-y-1 rounded-lg ${
-                      isToday ? 'bg-blue-100 border border-blue-500' : ''
-                    }`}
-                  >
-                    <span
-                      className={`text-sm font-medium ${isToday ? 'text-blue-600 font-bold' : 'text-gray-900'}`}
-                    >
-                      {date.getDate()}
-                    </span>
-                    <div className="flex space-x-1 h-2 items-center">
-                      {hasPickup && (
-                        <div
-                          className="w-1.5 h-1.5 bg-blue-600 rounded-full"
-                          title="Pickup"
-                        ></div>
-                      )}
-                      {hasReturn && (
-                        <div
-                          className="w-1.5 h-1.5 bg-green-600 rounded-full"
-                          title="Return"
-                        ></div>
-                      )}
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
-            {weekDates.map((date, index) => {
-              const dayBookings = getBookingsForDate(date)
-              const isToday = date.toDateString() === new Date().toDateString()
-
-              return (
-                <DroppableDateCell
-                  key={index}
-                  date={date}
-                  onDrop={handleReschedule}
-                  isToday={isToday}
-                >
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-sm font-medium">
-                      <div className="flex flex-col items-center text-center">
-                        <span className="text-gray-600">{weekDays[index]}</span>
-                        <span
-                          className={`text-lg ${isToday ? 'text-blue-600 font-bold' : ''}`}
-                        >
-                          {formatDate(date)}
-                        </span>
-                      </div>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-2">
-                    {dayBookings.length === 0 ? (
-                      <p className="text-sm text-gray-400 text-center">
-                        {t('station.no_bookings', 'No bookings')}
-                      </p>
-                    ) : (
-                      dayBookings.map((booking) => {
-                        const bookingType = getBookingType(booking, date)
-                        return (
-                          <DraggableBookingCard
-                            key={booking.id}
-                            booking={booking}
-                            bookingType={bookingType}
-                            date={date}
-                          />
-                        )
-                      })
-                    )}
-                  </CardContent>
-                </DroppableDateCell>
-              )
-            })}
-          </div>
-
-          {/* Summary */}
-          <Card className="mt-8">
-            <CardHeader>
-              <CardTitle>
-                {t('station.week_summary.title', 'Week Summary')}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                <div>
-                  <div className="text-2xl font-bold text-blue-600">
-                    {
-                      bookings.filter((b) => {
-                        const startDate = new Date(b.startDate)
-                        return weekDates.some(
-                          (d) => d.toDateString() === startDate.toDateString(),
-                        )
-                      }).length
-                    }
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    {t('station.week_summary.pickups', 'Pickups')}
-                  </div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-green-600">
-                    {
-                      bookings.filter((b) => {
-                        const endDate = new Date(b.endDate)
-                        return weekDates.some(
-                          (d) => d.toDateString() === endDate.toDateString(),
-                        )
-                      }).length
-                    }
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    {t('station.week_summary.returns', 'Returns')}
-                  </div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-purple-600">
-                    {new Set(bookings.map((b) => b.customerName)).size}
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    {t(
-                      'station.week_summary.unique_customers',
-                      'Unique Customers',
-                    )}
-                  </div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-orange-600">
-                    {bookings.length}
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    {t('station.week_summary.total_bookings', 'Total Bookings')}
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          <StationWeekSummary weekDates={weekDates} bookings={bookings} />
         </div>
       </div>
     </DndProvider>
