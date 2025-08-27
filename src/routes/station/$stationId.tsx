@@ -1,4 +1,12 @@
-import { useState } from 'react'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Calendar } from '@/components/ui/calendar'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import {
   ArrowLeft,
@@ -6,18 +14,11 @@ import {
   Calendar as CalendarIcon, // Renamed to avoid conflict
   ChevronLeft,
   User,
+  MapPin,
 } from 'lucide-react'
+import { useState } from 'react'
 import { useBookingsByStation, useStation } from '../../hooks/useApi'
 import type { BookingListItem } from '../../types/api'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
-import { Calendar } from '@/components/ui/calendar'
 
 export const Route = createFileRoute('/station/$stationId')({
   component: StationCalendarPage,
@@ -53,13 +54,13 @@ function StationCalendarPage() {
 
   const weekDates = getWeekDates(currentWeek)
   const weekDays = [
-    'Sunday',
     'Monday',
     'Tuesday',
     'Wednesday',
     'Thursday',
     'Friday',
     'Saturday',
+    'Sunday',
   ]
 
   // Filter bookings by date
@@ -83,7 +84,6 @@ function StationCalendarPage() {
     const dateString = date.toISOString().split('T')[0]
     const startDate = booking.startDate.split('T')[0]
     const endDate = booking.endDate.split('T')[0]
-
     if (startDate === dateString && endDate === dateString) {
       return 'same-day'
     } else if (startDate === dateString) {
@@ -179,40 +179,49 @@ function StationCalendarPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Button variant="outline" onClick={handleBackToHome} size="sm">
-              <ChevronLeft className="h-4 w-4 mr-2" />
-              Back to Stations
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-blue-100">
+      <div className="container mx-auto px-4 py-4">
+        {/* Header: back button above, station name with pin, calendar on right */}
+        <div className="">
+          <div className="flex w-full mb-1">
+            <Button
+              variant="outline"
+              onClick={handleBackToHome}
+              size="lg"
+              className="shrink-0"
+            >
+              <ChevronLeft className="h-5 w-5 mr-1" />
+              <div className="text-lg">Back to Stations</div>
             </Button>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">
+          </div>
+          <div className="flex items-center justify-between w-full mt-2 mb-4">
+            <div className="flex items-center gap-2">
+              <MapPin className="w-6 h-6 text-blue-600" />
+              <h1 className="text-3xl font-bold text-gray-900 leading-tight">
                 {station ? station.name : 'Station Calendar'}
               </h1>
-              <p className="text-gray-600">Manage pickups and returns</p>
             </div>
+            <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="border-blue-100 bg-white hover:bg-blue-100"
+                >
+                  <CalendarIcon className="h-5 w-5 text-blue-600" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="end">
+                <Calendar
+                  mode="single"
+                  selected={
+                    weekDates[0] // Select the first day of the current week
+                  }
+                  onSelect={handleDateSelect}
+                />
+              </PopoverContent>
+            </Popover>
           </div>
-          {/* --- UPDATED: Calendar Icon is now a Popover Trigger --- */}
-          <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
-            <PopoverTrigger asChild>
-              <Button variant="outline" size="icon">
-                <CalendarIcon className="h-5 w-5 text-blue-600" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="end">
-              <Calendar
-                mode="single"
-                selected={
-                  weekDates[0] // Select the first day of the current week
-                }
-                onSelect={handleDateSelect}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
         </div>
 
         {/* Week Navigation */}

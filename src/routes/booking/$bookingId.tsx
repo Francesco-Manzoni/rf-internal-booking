@@ -1,5 +1,12 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { ArrowLeft, Calendar, Clock, MapPin, User } from 'lucide-react'
+import {
+  ArrowLeft,
+  Calendar,
+  ChevronLeft,
+  Clock,
+  MapPin,
+  User,
+} from 'lucide-react'
 import { useBooking } from '../../hooks/useApi'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -106,25 +113,35 @@ function BookingDetailPage() {
   const duration = calculateDuration(booking.startDate, booking.endDate)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-blue-100">
       <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Button variant="outline" onClick={handleBackToCalendar} size="sm">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Calendar
+        {/* Header: back button above, station name with pin, calendar on right */}
+        <div className="pb-4">
+          <div className="flex w-full mb-1">
+            <Button
+              variant="outline"
+              onClick={handleBackToCalendar}
+              size="lg"
+              className="shrink-0"
+            >
+              <ChevronLeft className="h-5 w-5 mr-1" />
+              <div className="text-lg">Back to Calendar</div>
             </Button>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">
+          </div>
+          <div className="flex items-center justify-between w-full mt-2 mb-4">
+            <div className="flex items-center gap-2">
+              <MapPin className="w-6 h-6 text-blue-600" />
+              <h1 className="text-3xl font-bold text-gray-900 leading-tight">
                 Booking Details
               </h1>
-              <p className="text-gray-600">Booking ID: {booking.id}</p>
             </div>
+            <Badge
+              variant={bookingStatus.variant}
+              className="text-sm px-3 py-1"
+            >
+              {bookingStatus.label}
+            </Badge>
           </div>
-          <Badge variant={bookingStatus.variant} className="text-sm px-3 py-1">
-            {bookingStatus.label}
-          </Badge>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
