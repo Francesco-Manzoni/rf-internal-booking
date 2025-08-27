@@ -1,4 +1,49 @@
 {
+  "booking": {
+    "actions": {
+      "copy_details": "Copy Details",
+      "copy_details_content": "Booking Details",
+      "copy_error": "Failed to copy booking details",
+      "copy_success": "Booking details copied to clipboard!",
+      "email_body": "Dear {{customerName}},\n\nYour campervan booking is confirmed:\n\nBooking ID: {{bookingId}}\nPickup: {{pickupDate}}\nReturn: {{returnDate}}\nDuration: {{duration}}\nStation: {{stationName}}\n\nPlease arrive 15 minutes before your pickup time.\n\nBest regards,\nThe Roadsurfer Team",
+      "email_subject": "Booking Confirmation - {{customerName}}",
+      "send_email": "Send Email",
+      "title": "Actions",
+      "view_calendar": "View Station Calendar"
+    },
+    "back_to_calendar": "Back to Calendar",
+    "customer_info": {
+      "booking_id": "Booking ID",
+      "name": "Customer Name",
+      "title": "Customer Information"
+    },
+    "duration": {
+      "multiple_days": "{{count}} days",
+      "one_day": "1 day"
+    },
+    "error": "Error loading booking details. Please try again.",
+    "go_back": "Go Back",
+    "loading": "Loading booking details...",
+    "station_info": {
+      "note": "All pickups and returns are processed at the same station location. Please ensure the vehicle is returned clean and with a full tank.",
+      "note_title": "Station Note",
+      "station": "Pickup & Return Station",
+      "station_id": "Station ID",
+      "title": "Station Information"
+    },
+    "status": {
+      "active": "Active",
+      "completed": "Completed",
+      "upcoming": "Upcoming"
+    },
+    "timeline": {
+      "duration": "Duration",
+      "pickup": "Pickup Date & Time",
+      "return": "Return Date & Time",
+      "title": "Booking Timeline"
+    },
+    "title": "Booking Details"
+  },
   "common": {
     "error": "Error loading data. Please try again.",
     "loading": "Loading...",
@@ -35,6 +80,7 @@
     "title": "🏕️ Campervan Booking Dashboard"
   },
   "home.search.no_results": "No stations found for {{query}}",
+  "home.search.placeholder": "Search for a station...",
   "home.search.start_typing": "Start typing to search...",
   "station": {
     "back_to_stations": "Back to stations",
@@ -67,71 +113,27 @@
       "previous_week": "Previous Week"
     },
     "no_bookings": "No bookings",
+    "reschedule": {
+      "drag_hint": "Drag bookings to reschedule pickup or return dates",
+      "error": {
+        "invalid_dates": "Pickup date cannot be after return date"
+      },
+      "success": "Successfully rescheduled {{type}} for {{customerName}}"
+    },
     "week_summary": {
       "pickups": "Pickups",
       "returns": "Returns",
       "title": "Week Summary",
       "total_bookings": "Total Bookings",
       "unique_customers": "Unique Customers"
-    },
-    "reschedule": {
-      "success": "Successfully rescheduled {{type}} for {{customerName}}",
-      "error": {
-        "invalid_dates": "Pickup date cannot be after return date"
-      },
-      "drag_hint": "Drag bookings to reschedule pickup or return dates"
     }
   },
+  "station.search.placeholder": "Switch to another station...",
   "stationCard": {
     "name": "{{name}}",
     "pickups": "{{count}} pickups",
     "returns": "{{count}} returns",
     "this_week": "This week:",
     "total": "{{count}} this week"
-  },
-  "booking": {
-    "title": "Booking Details",
-    "loading": "Loading booking details...",
-    "error": "Error loading booking details. Please try again.",
-    "go_back": "Go Back",
-    "back_to_calendar": "Back to Calendar",
-    "duration": {
-      "one_day": "1 day",
-      "multiple_days": "{{count}} days"
-    },
-    "status": {
-      "upcoming": "Upcoming",
-      "active": "Active",
-      "completed": "Completed"
-    },
-    "customer_info": {
-      "title": "Customer Information",
-      "name": "Customer Name",
-      "booking_id": "Booking ID"
-    },
-    "timeline": {
-      "title": "Booking Timeline",
-      "pickup": "Pickup Date & Time",
-      "return": "Return Date & Time",
-      "duration": "Duration"
-    },
-    "station_info": {
-      "title": "Station Information",
-      "station": "Pickup & Return Station",
-      "station_id": "Station ID",
-      "note_title": "Station Note",
-      "note": "All pickups and returns are processed at the same station location. Please ensure the vehicle is returned clean and with a full tank."
-    },
-    "actions": {
-      "title": "Actions",
-      "view_calendar": "View Station Calendar",
-      "copy_details": "Copy Details",
-      "copy_details_content": "Booking Details",
-      "copy_success": "Booking details copied to clipboard!",
-      "copy_error": "Failed to copy booking details",
-      "send_email": "Send Email",
-      "email_subject": "Booking Confirmation - {{customerName}}",
-      "email_body": "Dear {{customerName}},\n\nYour campervan booking is confirmed:\n\nBooking ID: {{bookingId}}\nPickup: {{pickupDate}}\nReturn: {{returnDate}}\nDuration: {{duration}}\nStation: {{stationName}}\n\nPlease arrive 15 minutes before your pickup time.\n\nBest regards,\nThe Roadsurfer Team"
-    }
   }
 }

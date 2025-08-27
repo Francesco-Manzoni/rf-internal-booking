@@ -34,6 +34,9 @@ function HomePage() {
       navigate({
         to: '/station/$stationId',
         params: { stationId: selectedStationData.id },
+        search: {
+          week: undefined,
+        },
       })
     }
   }

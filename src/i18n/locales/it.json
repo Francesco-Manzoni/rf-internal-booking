@@ -1,4 +1,49 @@
 {
+  "booking": {
+    "actions": {
+      "copy_details": "Copia Dettagli",
+      "copy_details_content": "Dettagli Prenotazione",
+      "copy_error": "Impossibile copiare i dettagli della prenotazione",
+      "copy_success": "Dettagli prenotazione copiati negli appunti!",
+      "email_body": "Caro {{customerName}},\n\nLa tua prenotazione camper è confermata:\n\nID Prenotazione: {{bookingId}}\nRitiro: {{pickupDate}}\nRientro: {{returnDate}}\nDurata: {{duration}}\nStazione: {{stationName}}\n\nSi prega di arrivare 15 minuti prima dell'orario di ritiro.\n\nCordiali saluti,\nIl Team Roadsurfer",
+      "email_subject": "Conferma Prenotazione - {{customerName}}",
+      "send_email": "Invia Email",
+      "title": "Azioni",
+      "view_calendar": "Visualizza Calendario Stazione"
+    },
+    "back_to_calendar": "Torna al Calendario",
+    "customer_info": {
+      "booking_id": "ID Prenotazione",
+      "name": "Nome Cliente",
+      "title": "Informazioni Cliente"
+    },
+    "duration": {
+      "multiple_days": "{{count}} giorni",
+      "one_day": "1 giorno"
+    },
+    "error": "Errore nel caricamento dei dettagli della prenotazione. Riprova.",
+    "go_back": "Torna Indietro",
+    "loading": "Caricamento dettagli prenotazione...",
+    "station_info": {
+      "note": "Tutti i ritiri e i rientri vengono elaborati nella stessa ubicazione della stazione. Assicurati che il veicolo venga restituito pulito e con il serbatoio pieno.",
+      "note_title": "Nota Stazione",
+      "station": "Stazione Ritiro e Rientro",
+      "station_id": "ID Stazione",
+      "title": "Informazioni Stazione"
+    },
+    "status": {
+      "active": "Attiva",
+      "completed": "Completata",
+      "upcoming": "In Arrivo"
+    },
+    "timeline": {
+      "duration": "Durata",
+      "pickup": "Data e Ora Ritiro",
+      "return": "Data e Ora Rientro",
+      "title": "Cronologia Prenotazione"
+    },
+    "title": "Dettagli Prenotazione"
+  },
   "common": {
     "error": "Errore nel caricamento dei dati. Riprova.",
     "loading": "Caricamento...",
@@ -35,6 +80,7 @@
     "title": "🏕️ Dashboard Prenotazioni Camper"
   },
   "home.search.no_results": "",
+  "home.search.placeholder": "",
   "station": {
     "back_to_stations": "Torna alle stazioni",
     "badges": {
@@ -74,56 +120,12 @@
       "unique_customers": "Clienti Unici"
     }
   },
+  "station.search.placeholder": "",
   "stationCard": {
     "name": "{{name}}",
     "pickups": "{{count}} ritiri",
     "returns": "{{count}} rientri",
     "this_week": "Questa settimana:",
     "total": "{{count}} questa settimana"
-  },
-  "booking": {
-    "title": "Dettagli Prenotazione",
-    "loading": "Caricamento dettagli prenotazione...",
-    "error": "Errore nel caricamento dei dettagli della prenotazione. Riprova.",
-    "go_back": "Torna Indietro",
-    "back_to_calendar": "Torna al Calendario",
-    "duration": {
-      "one_day": "1 giorno",
-      "multiple_days": "{{count}} giorni"
-    },
-    "status": {
-      "upcoming": "In Arrivo",
-      "active": "Attiva",
-      "completed": "Completata"
-    },
-    "customer_info": {
-      "title": "Informazioni Cliente",
-      "name": "Nome Cliente",
-      "booking_id": "ID Prenotazione"
-    },
-    "timeline": {
-      "title": "Cronologia Prenotazione",
-      "pickup": "Data e Ora Ritiro",
-      "return": "Data e Ora Rientro",
-      "duration": "Durata"
-    },
-    "station_info": {
-      "title": "Informazioni Stazione",
-      "station": "Stazione Ritiro e Rientro",
-      "station_id": "ID Stazione",
-      "note_title": "Nota Stazione",
-      "note": "Tutti i ritiri e i rientri vengono elaborati nella stessa ubicazione della stazione. Assicurati che il veicolo venga restituito pulito e con il serbatoio pieno."
-    },
-    "actions": {
-      "title": "Azioni",
-      "view_calendar": "Visualizza Calendario Stazione",
-      "copy_details": "Copia Dettagli",
-      "copy_details_content": "Dettagli Prenotazione",
-      "copy_success": "Dettagli prenotazione copiati negli appunti!",
-      "copy_error": "Impossibile copiare i dettagli della prenotazione",
-      "send_email": "Invia Email",
-      "email_subject": "Conferma Prenotazione - {{customerName}}",
-      "email_body": "Caro {{customerName}},\n\nLa tua prenotazione camper è confermata:\n\nID Prenotazione: {{bookingId}}\nRitiro: {{pickupDate}}\nRientro: {{returnDate}}\nDurata: {{duration}}\nStazione: {{stationName}}\n\nSi prega di arrivare 15 minuti prima dell'orario di ritiro.\n\nCordiali saluti,\nIl Team Roadsurfer"
-    }
   }
 }

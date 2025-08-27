@@ -5,12 +5,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
+import { StationSearchInput } from '@/components/StationSearchInput'
 import { useNavigate } from '@tanstack/react-router'
 import { Calendar as CalendarIcon, ChevronLeft, MapPin } from 'lucide-react'
 import { useState } from 'react'
 import { de, enUS, es, it } from 'react-day-picker/locale'
 import { useTranslation } from 'react-i18next'
-import { useStation } from '../../hooks/useApi'
+import { useStation, useStationSearch } from '../../hooks/useApi'
+import { useStationWeeklyStats } from '../../hooks/useStationWeeklyStats'
 
 export const StationHeader = ({
   stationId,
@@ -24,10 +26,29 @@ export const StationHeader = ({
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
   const { data: station } = useStation(stationId)
+
+  const { data: searchResults = [], isLoading: isSearching } =
+    useStationSearch(searchQuery)
+
+  const stations = searchQuery ? searchResults : []
+  const stationsWithStats = useStationWeeklyStats(stations)
 
   const handleBackToHome = () => {
     navigate({ to: '/' })
+  }
+
+  const handleStationSelect = (selectedStationId: string) => {
+    if (selectedStationId !== stationId) {
+      navigate({
+        to: '/station/$stationId',
+        params: { stationId: selectedStationId },
+        search: {
+          week: undefined,
+        },
+      })
+    }
   }
 
   return (
@@ -45,6 +66,7 @@ export const StationHeader = ({
           </div>
         </Button>
       </div>
+
       <div className="flex items-center justify-between w-full mt-2 mb-4">
         <div className="flex items-center gap-2">
           <MapPin className="w-6 h-6 text-blue-600" />
@@ -94,6 +116,19 @@ export const StationHeader = ({
             />
           </PopoverContent>
         </Popover>
+      </div>
+
+      {/* Station Search Input */}
+      <div className="mb-4">
+        <StationSearchInput
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          onStationSelect={handleStationSelect}
+          isLoading={isSearching}
+          stationsWithStats={stationsWithStats}
+          variant="compact"
+          placeholder={t('station.search.placeholder')}
+        />
       </div>
     </div>
   )

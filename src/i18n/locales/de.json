@@ -1,4 +1,49 @@
 {
+  "booking": {
+    "actions": {
+      "copy_details": "Details kopieren",
+      "copy_details_content": "Buchungsdetails",
+      "copy_error": "Fehler beim Kopieren der Buchungsdetails",
+      "copy_success": "Buchungsdetails in die Zwischenablage kopiert!",
+      "email_body": "Sehr geehrte(r) {{customerName}},\n\nIhre Camper-Buchung wurde bestätigt:\n\nBuchungs-ID: {{bookingId}}\nAbholung: {{pickupDate}}\nRückgabe: {{returnDate}}\nDauer: {{duration}}\nStation: {{stationName}}\n\nBitte kommen Sie 15 Minuten vor der Abholung an.\n\nMit freundlichen Grüßen,\nDas Roadsurfer-Team",
+      "email_subject": "Buchungsbestätigung - {{customerName}}",
+      "send_email": "E-Mail senden",
+      "title": "Aktionen",
+      "view_calendar": "Station-Kalender anzeigen"
+    },
+    "back_to_calendar": "Zurück zum Kalender",
+    "customer_info": {
+      "booking_id": "Buchungs-ID",
+      "name": "Kundenname",
+      "title": "Kundeninformation"
+    },
+    "duration": {
+      "multiple_days": "{{count}} Tage",
+      "one_day": "1 Tag"
+    },
+    "error": "Fehler beim Laden der Buchungsdetails. Bitte erneut versuchen.",
+    "go_back": "Zurück",
+    "loading": "Buchungsdetails werden geladen...",
+    "station_info": {
+      "note": "Alle Abholungen und Rückgaben erfolgen am selben Standort. Bitte stellen Sie sicher, dass das Fahrzeug sauber und mit vollem Tank zurückgegeben wird.",
+      "note_title": "Hinweis zur Station",
+      "station": "Abhol- und Rückgabestation",
+      "station_id": "Station-ID",
+      "title": "Station-Information"
+    },
+    "status": {
+      "active": "Aktiv",
+      "completed": "Abgeschlossen",
+      "upcoming": "Bevorstehend"
+    },
+    "timeline": {
+      "duration": "Dauer",
+      "pickup": "Abholdatum und -uhrzeit",
+      "return": "Rückgabedatum und -uhrzeit",
+      "title": "Buchungszeitplan"
+    },
+    "title": "Buchungsdetails"
+  },
   "common": {
     "error": "Fehler beim Laden der Daten. Bitte erneut versuchen.",
     "loading": "Wird geladen...",
@@ -28,9 +73,9 @@
       "no_results": "Keine Stationen gefunden",
       "placeholder": "Suche nach einer Station...",
       "select_station": "Station auswählen",
+      "start_typing": "Beginnen Sie mit der Eingabe, um zu suchen...",
       "station_selected": "Station ausgewählt! Klicken Sie unten, um den Kalender anzuzeigen.",
-      "view_calendar": "Station-Kalender anzeigen",
-      "start_typing": "Beginnen Sie mit der Eingabe, um zu suchen..."
+      "view_calendar": "Station-Kalender anzeigen"
     },
     "subtitle": "Verwalten Sie Abholungen und Rückgaben für Ihre Camper-Mietstationen. Wählen Sie eine Station, um den Kalender anzuzeigen und Buchungen zu verwalten.",
     "title": "🏕️ Camper-Buchungs-Dashboard"
@@ -74,56 +119,12 @@
       "unique_customers": "Einzigartige Kunden"
     }
   },
+  "station.search.placeholder": "Wechseln Sie zu einer anderen Station ...",
   "stationCard": {
     "name": "{{name}}",
     "pickups": "{{count}} Abholungen",
     "returns": "{{count}} Rückgaben",
     "this_week": "Diese Woche:",
     "total": "{{count}} diese Woche"
-  },
-  "booking": {
-    "title": "Buchungsdetails",
-    "loading": "Buchungsdetails werden geladen...",
-    "error": "Fehler beim Laden der Buchungsdetails. Bitte erneut versuchen.",
-    "go_back": "Zurück",
-    "back_to_calendar": "Zurück zum Kalender",
-    "duration": {
-      "one_day": "1 Tag",
-      "multiple_days": "{{count}} Tage"
-    },
-    "status": {
-      "upcoming": "Bevorstehend",
-      "active": "Aktiv",
-      "completed": "Abgeschlossen"
-    },
-    "customer_info": {
-      "title": "Kundeninformation",
-      "name": "Kundenname",
-      "booking_id": "Buchungs-ID"
-    },
-    "timeline": {
-      "title": "Buchungszeitplan",
-      "pickup": "Abholdatum und -uhrzeit",
-      "return": "Rückgabedatum und -uhrzeit",
-      "duration": "Dauer"
-    },
-    "station_info": {
-      "title": "Station-Information",
-      "station": "Abhol- und Rückgabestation",
-      "station_id": "Station-ID",
-      "note_title": "Hinweis zur Station",
-      "note": "Alle Abholungen und Rückgaben erfolgen am selben Standort. Bitte stellen Sie sicher, dass das Fahrzeug sauber und mit vollem Tank zurückgegeben wird."
-    },
-    "actions": {
-      "title": "Aktionen",
-      "view_calendar": "Station-Kalender anzeigen",
-      "copy_details": "Details kopieren",
-      "copy_details_content": "Buchungsdetails",
-      "copy_success": "Buchungsdetails in die Zwischenablage kopiert!",
-      "copy_error": "Fehler beim Kopieren der Buchungsdetails",
-      "send_email": "E-Mail senden",
-      "email_subject": "Buchungsbestätigung - {{customerName}}",
-      "email_body": "Sehr geehrte(r) {{customerName}},\n\nIhre Camper-Buchung wurde bestätigt:\n\nBuchungs-ID: {{bookingId}}\nAbholung: {{pickupDate}}\nRückgabe: {{returnDate}}\nDauer: {{duration}}\nStation: {{stationName}}\n\nBitte kommen Sie 15 Minuten vor der Abholung an.\n\nMit freundlichen Grüßen,\nDas Roadsurfer-Team"
-    }
   }
 }

@@ -6,16 +6,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 import type { StationWithStats } from '@/types/api'
-import { Calendar, MapPin, X } from 'lucide-react'
-import { useRef, useState } from 'react'
+import { Calendar, X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import {
   StationCard,
   StationCardSkeleton,
 } from './station-components/StationCard'
-import { debounce } from '@/lib/utils'
+import { StationSearchInput } from './StationSearchInput'
 
 interface AnimatedStationSearchInputProps {
   searchQuery: string
@@ -39,32 +37,13 @@ export function AnimatedStationSearchInput({
   stationsWithStats,
 }: AnimatedStationSearchInputProps) {
   const { t } = useTranslation()
-  const [value, setValue] = useState(searchQuery)
-  const inputRef = useRef<HTMLInputElement>(null)
-
-  const debouncedSetSearchQuery = useRef(debounce(setSearchQuery, 500)).current
-
-  // Debounce logic for search input
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value
-    setValue(val) // Update immediate input value
-    debouncedSetSearchQuery(val) // Update debounced search query
-  }
 
   const handleSearchFocus = () => {
     setIsSearchFocused(true)
-    // Mobile fix: Scroll the focused input into view reliably
-    setTimeout(() => {
-      if (inputRef.current) {
-        inputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      }
-    }, 300) // Delay to allow for keyboard to appear
   }
 
   const handleSearchBlur = () => {
     setTimeout(() => {
-      // Only unfocus if the search query is empty to prevent immediate hiding
-      // when clicking on a station card.
       if (!searchQuery) {
         setIsSearchFocused(false)
       }
@@ -134,27 +113,24 @@ export function AnimatedStationSearchInput({
             >
               <div className="space-y-2">
                 <div className="flex items-center gap-4">
-                  <div className="flex-1 relative">
-                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                    <Input
-                      id="station-select"
-                      ref={inputRef}
-                      value={value} // Display immediate query
-                      onChange={handleSearchChange}
+                  <div className="flex-1">
+                    <StationSearchInput
+                      searchQuery={searchQuery}
+                      setSearchQuery={setSearchQuery}
+                      onStationSelect={handleStationSelect}
+                      isLoading={isLoading}
+                      stationsWithStats={stationsWithStats}
+                      showResults={false} // We'll show results separately below
                       onFocus={handleSearchFocus}
                       onBlur={handleSearchBlur}
-                      placeholder={t(
-                        'home.search.placeholder',
-                        'Search for a station...',
-                      )}
                       className={`
-                          pl-10 pr-4 h-12 text-lg transition-all duration-500 ease-in-out
-                          ${
-                            isSearchFocused
-                              ? 'ring-2 ring-blue-500 shadow-lg'
-                              : 'cursor-pointer'
-                          }
-                        `}
+                        transition-all duration-500 ease-in-out
+                        ${
+                          isSearchFocused
+                            ? 'ring-2 ring-blue-500 shadow-lg'
+                            : 'cursor-pointer'
+                        }
+                      `}
                     />
                   </div>
 
