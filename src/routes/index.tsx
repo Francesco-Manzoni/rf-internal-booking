@@ -65,7 +65,7 @@ function HomePage() {
         </p>
       </div>
 
-      <div className="flex-1 flex flex-col justify-center">
+      <div className="flex-1 flex flex-col justify-start">
         <AnimatedStationSearchInput
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
@@ -76,56 +76,6 @@ function HomePage() {
           isLoading={isSearching}
           stationsWithStats={stationsWithStats}
         />
-      </div>
-
-      {/* Features Section - Hidden when search is focused */}
-      <div
-        className={`
-        container mx-auto px-4 transition-all duration-500 ease-in-out
-        ${
-          isSearchFocused
-            ? 'opacity-0 transform translate-y-8 pointer-events-none'
-            : 'opacity-100 transform translate-y-0'
-        }
-      `}
-      >
-        <div className="grid md:grid-cols-3 gap-6 mt-12 max-w-2xl mx-auto">
-          <Card className="text-center border-0 bg-white/60 backdrop-blur-sm">
-            <CardContent className="pt-6">
-              <Calendar className="h-8 w-8 text-blue-600 mx-auto mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">
-                {t('home.features.calendar.title')}
-              </h3>
-              <p className="text-sm text-gray-600">
-                {t('home.features.calendar.description')}
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="text-center border-0 bg-white/60 backdrop-blur-sm">
-            <CardContent className="pt-6">
-              <Users className="h-8 w-8 text-green-600 mx-auto mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">
-                {t('home.features.booking.title')}
-              </h3>
-              <p className="text-sm text-gray-600">
-                {t('home.features.booking.description')}
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="text-center border-0 bg-white/60 backdrop-blur-sm">
-            <CardContent className="pt-6">
-              <MapPin className="h-8 w-8 text-purple-600 mx-auto mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">
-                {t('home.features.station.title')}
-              </h3>
-              <p className="text-sm text-gray-600">
-                {t('home.features.station.description')}
-              </p>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </div>
   )
