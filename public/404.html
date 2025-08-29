@@ -18,7 +18,6 @@
       // If you're creating a Project Pages site and NOT using a custom domain,
       // then set pathSegmentsToKeep to 1 (enterprise users may need to set it to > 1).
       // This way the code will only replace the route part and not the real directory.
-      // In this case the repository name is rf-internal-booking, so we need 1 segment.
       var pathSegmentsToKeep = 1;
 
       var l = window.location;
@@ -33,5 +32,7 @@
     </script>
   </head>
   <body>
+    <!-- This page is just a fallback for when GitHub Pages can't find a route -->
+    <!-- It redirects to the main app while preserving the intended route -->
   </body>
 </html>

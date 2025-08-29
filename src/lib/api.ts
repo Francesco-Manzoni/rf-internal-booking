@@ -1,7 +1,12 @@
 import type { Booking, BookingListItem, Station } from '../types/api'
 
-const BASE_URL = '/api/stations'
-const BOOKINGS_BASE_URL = '/api/bookings'
+// Use full URL in production, relative paths in development
+const API_BASE = import.meta.env.PROD 
+  ? 'https://605c94c36d85de00170da8b4.mockapi.io' 
+  : '/api'
+
+const BASE_URL = `${API_BASE}/stations`
+const BOOKINGS_BASE_URL = `${API_BASE}/bookings`
 
 export const stationsApi = {
   async getStationById(id: string): Promise<Station> {
