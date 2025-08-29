@@ -1,6 +1,4 @@
-import { Card, CardContent } from '@/components/ui/card'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { Calendar, MapPin, Users } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useStationSearch } from '../hooks/useApi'
