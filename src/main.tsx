@@ -21,6 +21,7 @@ const router = createRouter({
   context: {
     ...TanStackQueryProviderContext,
   },
+  basepath: import.meta.env.PROD ? '/rf-internal-booking' : '/',
   defaultPreload: 'intent',
   scrollRestoration: true,
   defaultStructuralSharing: true,
