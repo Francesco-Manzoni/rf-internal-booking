@@ -47,7 +47,7 @@ export function StationSearchInput({
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value
     setValue(val)
-    debouncedSetSearchQuery(val)
+    debouncedSetSearchQuery(val.trim())
   }
 
   const handleFocus = () => {
