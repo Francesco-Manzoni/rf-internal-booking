@@ -81,6 +81,7 @@
   },
   "home.search.no_results": "",
   "home.search.placeholder": "",
+  "home.search.start_typing": "Inizia a digitare per cercare ...",
   "station": {
     "back_to_stations": "Torna alle stazioni",
     "badges": {

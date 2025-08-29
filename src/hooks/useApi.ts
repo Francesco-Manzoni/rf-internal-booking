@@ -14,6 +14,7 @@ export const useStationSearch = (query: string) => {
     queryKey: ['stations', 'search', query],
     queryFn: () => stationsApi.searchStations(query),
     enabled: query.length > 0,
+    retry: false,
   })
 }
 
