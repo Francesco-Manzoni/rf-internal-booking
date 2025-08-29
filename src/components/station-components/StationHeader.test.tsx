@@ -57,7 +57,6 @@ vi.mock('@/components/StationSearchInput', () => ({
 
 vi.mock('@/components/ui/calendar', () => ({
   Calendar: ({
-    locale,
     onSelect,
   }: {
     locale?: any

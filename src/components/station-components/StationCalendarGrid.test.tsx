@@ -13,7 +13,7 @@ vi.mock('react-i18next', () => ({
 vi.mock('../DroppableDateCellProps', () => ({
   DroppableDateCell: ({
     date,
-    onDrop,
+
     isToday,
     children,
   }: {
@@ -33,7 +33,6 @@ vi.mock('../DraggableBookingCard', () => ({
   DraggableBookingCard: ({
     booking,
     bookingType,
-    date,
   }: {
     booking: any
     bookingType: string

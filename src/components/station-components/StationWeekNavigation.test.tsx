@@ -145,6 +145,7 @@ describe('StationWeekNavigation', () => {
     // Mock Date prototype to avoid 'this' context issues
     const originalToLocaleDateString = Date.prototype.toLocaleDateString
     const mockToLocaleDateString = vi.fn(function (...args) {
+      // @ts-ignore not an error
       return originalToLocaleDateString.apply(this, args)
     })
     Date.prototype.toLocaleDateString = mockToLocaleDateString

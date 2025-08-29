@@ -121,7 +121,7 @@ describe('StationCard', () => {
     // There is no badge for total when total is 0, so only 0 Pickups and 0 Returns
     // Use a function matcher to find all elements whose textContent is exactly '0'
     const zeroElements = screen.queryAllByText(
-      (content, node) => node?.textContent === '0',
+      (_content, node) => node?.textContent === '0',
     )
     expect(zeroElements.length).toBe(0)
   })
@@ -185,7 +185,7 @@ describe('StationCard', () => {
     )
     // There should be no badge with text '0'
     const badge = screen.queryByText(
-      (content, node) => node?.textContent === '0',
+      (_content, node) => node?.textContent === '0',
     )
     expect(badge).not.toBeInTheDocument()
   })
@@ -251,7 +251,7 @@ describe('StationCard', () => {
     expect(screen.getByText('0 Returns')).toBeInTheDocument()
     // There should be no badge with text '0'
     const badge = screen.queryByText(
-      (content, node) => node?.textContent === '0',
+      (_content, node) => node?.textContent === '0',
     )
     expect(badge).not.toBeInTheDocument()
   })

@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate, useSearch } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import {
   ArrowLeft,
   Calendar,
