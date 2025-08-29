@@ -7,6 +7,7 @@ import { resolve } from 'node:path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: process.env.NODE_ENV === 'production' ? '/rf-internal-booking/' : '/',
   plugins: [
     TanStackRouterVite({ autoCodeSplitting: true }),
     viteReact(),

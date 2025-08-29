@@ -19,11 +19,37 @@ npm run build
 
 ## Testing
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+This project uses [Vitest](https://vitest.dev/) for unit testing and [Cypress](https://www.cypress.io/) for end-to-end testing. You can run the tests with:
 
 ```bash
+# Run unit tests
 npm run test
+
+# Run E2E tests (requires the app to be running)
+npm run cy:run
 ```
+
+## CI/CD Pipeline
+
+This project includes a GitHub Actions workflow that:
+
+1. **Runs tests in parallel**: Unit tests (Vitest) and E2E tests (Cypress) run simultaneously for faster feedback
+2. **Builds the application**: Only if all tests pass
+3. **Deploys to GitHub Pages**: Automatic deployment on pushes to main/master branch
+
+### Setting up GitHub Pages
+
+To enable GitHub Pages deployment for your repository:
+
+1. Go to your repository settings on GitHub
+2. Navigate to "Pages" in the left sidebar
+3. Under "Source", select "GitHub Actions"
+4. The workflow will automatically deploy your app to `https://your-username.github.io/rf-internal-booking/`
+
+The workflow is configured in `.github/workflows/ci-cd.yml` and will:
+- Run on every push to main/master and on pull requests
+- Upload test artifacts and screenshots for debugging
+- Only deploy to production from main/master branch
 
 ## Styling
 

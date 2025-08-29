@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite --port 3000",
     "start": "vite --port 3000 --host",
-    "build": "vite build && tsc",
+    "build": "NODE_ENV=production vite build && tsc",
+    "build:dev": "vite build && tsc",
     "serve": "vite preview",
     "test": "vitest run",
     "lint": "eslint",
